@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<title>DiggersWorld Setup Calculator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style type="text/css">
+hr {
+    height: 1px;
+    color: #123455;
+    background-color: #123455;
+    border: none;
+}
+</style>
+<script type="text/javascript">
+var pickaxe_sulf_array = [6, 19, 60, 200];
+var pickaxe_iron_array = [-2, -6, -18, -54];
+var pickaxe_diamond_array = [-1, -3, -9, -28];
+
+var bomb_iron_array = [6, 19, 60, 200];
+var bomb_sulf_array = [-2, -6, -18, -54];
+var bomb_diamond_array = [-1, -3, -9, -28];
+
+var jackhammer_diamond_array = [21, 70, 225];
+var jackhammer_sulf_array = [-9, -33, -100];
+var jackhammer_iron_array = [-9, -33, -100];
+
+function recalculate() {
+	var pickaxe_1 = document.getElementById("pickaxe_1").value;
+	var pickaxe_2 = document.getElementById("pickaxe_2").value;
+	var bomb_1 = document.getElementById("bomb_1").value;
+	var bomb_2 = document.getElementById("bomb_2").value;
+	var jackhammer_1 = document.getElementById("jackhammer_1").value;
+	var jackhammer_2 = document.getElementById("jackhammer_2").value;
+	
+	var result_sulf = 0;
+	var result_iron = 0;
+	var result_diamond = 0;
+	
+	if (pickaxe_1 != 0) {
+		result_sulf += pickaxe_sulf_array[pickaxe_1 - 1];
+		result_iron += pickaxe_iron_array[pickaxe_1 - 1];
+		result_diamond += pickaxe_diamond_array[pickaxe_1 - 1];
+	}
+	if (pickaxe_2 != 0) {
+		result_sulf += pickaxe_sulf_array[pickaxe_2 - 1];
+		result_iron += pickaxe_iron_array[pickaxe_2 - 1];
+		result_diamond += pickaxe_diamond_array[pickaxe_2 - 1];
+	}
+	
+	if (bomb_1 != 0) {
+		result_sulf += bomb_sulf_array[bomb_1 - 1];
+		result_iron += bomb_iron_array[bomb_1 - 1];
+		result_diamond += bomb_diamond_array[bomb_1 - 1];
+	}
+	if (bomb_2 != 0) {
+		result_sulf += bomb_sulf_array[bomb_2 - 1];
+		result_iron += bomb_iron_array[bomb_2 - 1];
+		result_diamond += bomb_diamond_array[bomb_2 - 1];
+	}
+	
+	if (jackhammer_1 != 0) {
+		result_sulf += jackhammer_sulf_array[jackhammer_1 - 1];
+		result_iron += jackhammer_iron_array[jackhammer_1 - 1];
+		result_diamond += jackhammer_diamond_array[jackhammer_1 - 1];
+	}
+	if (jackhammer_2 != 0) {
+		result_sulf += jackhammer_sulf_array[jackhammer_2 - 1];
+		result_iron += jackhammer_iron_array[jackhammer_2 - 1];
+		result_diamond += jackhammer_diamond_array[jackhammer_2 - 1];
+	}
+	
+	var sulf_color = result_sulf >= 0 ? "green" : "red";
+	var iron_color = result_iron >= 0 ? "green" : "red";
+	var diamond_color = result_diamond >= 0 ? "green" : "red";
+	
+	if (result_sulf > 0) result_sulf = "+" + result_sulf;
+	if (result_iron > 0) result_iron = "+" + result_iron;
+	if (result_diamond > 0) result_diamond = "+" + result_diamond;
+	
+	
+	document.getElementById("result_sulf").innerHTML = '<span style="color:' + sulf_color + '">' + result_sulf + '</span>';
+	document.getElementById("result_iron").innerHTML = '<span style="color:' + iron_color + '">' + result_iron + '</span>';
+	document.getElementById("result_diamond").innerHTML = '<span style="color:' + diamond_color + '">' + result_diamond + '</span>';
+	
+}
+</script>
+<body>
+<br>
+
+<div class="w3-container w3-margin-bottom" style="text-align: center;">
+  <h2>DiggersWorld Setup Calculator</h2>
+  <div class="w3-small">(The calculations based on the <a href="https://whitepaper.diggersworld.io/whitepaper/game-nfts" target="_blank">whitepaper</a> numbers)</div>
+</div>
+
+<div class="w3-row-padding">
+
+<div class="w3-third w3-margin-bottom">
+  <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+  
+    <li class="w3-black w3-large w3-padding-16">PICKAXE</li>
+	
+    <li class="w3-padding-16"><b>Slot 1</b></li>
+    <li class="w3-padding-16">
+	
+	<select id="pickaxe_1" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: grey;">Common</option>
+	<option value="2" style="color: blue;">Rare</option>
+	<option value="3" style="color: purple;">Epic</option>
+	<option value="4" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	</li>
+   
+    <li class="w3-padding-16"><b>Slot 2</b></li>
+    <li class="w3-padding-16">
+	
+	<select id="pickaxe_2" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: grey;">Common</option>
+	<option value="2" style="color: blue;">Rare</option>
+	<option value="3" style="color: purple;">Epic</option>
+	<option value="4" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	</li>
+   
+  </ul>
+</div>
+
+<div class="w3-third w3-margin-bottom">
+  
+  <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+    <li class="w3-black w3-large w3-padding-16">BOMB</li>
+   
+    <li class="w3-padding-16"><b>Slot 1</b></li>
+    <li class="w3-padding-16">
+	
+	<select id="bomb_1" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: grey;">Common</option>
+	<option value="2" style="color: blue;">Rare</option>
+	<option value="3" style="color: purple;">Epic</option>
+	<option value="4" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	</li>
+   
+    <li class="w3-padding-16"><b>Slot 2</b></li>
+    <li class="w3-padding-16">
+	
+	<select id="bomb_2" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: grey;">Common</option>
+	<option value="2" style="color: blue;">Rare</option>
+	<option value="3" style="color: purple;">Epic</option>
+	<option value="4" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	</li>
+   
+  
+  </ul>
+</div>
+
+<div class="w3-third w3-margin-bottom">
+  <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+    <li class="w3-black w3-large w3-padding-16">JACKHAMMER</li>
+    
+	<li class="w3-padding-16"><b>Slot 1</b></li>
+    <li class="w3-padding-16">
+	
+	<select id="jackhammer_1" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: blue;">Rare</option>
+	<option value="2" style="color: purple;">Epic</option>
+	<option value="3" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	</li>
+   
+    <li class="w3-padding-16"><b>Slot 2</b></li>
+    <li class="w3-padding-16">
+	
+	<select id="jackhammer_2" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: blue;">Rare</option>
+	<option value="2" style="color: purple;">Epic</option>
+	<option value="3" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	</li>
+	
+  </ul>
+</div>
+  
+
+</div>
+
+<hr>
+
+<div class="w3-row-padding w3-center">
+
+<h1>Result:</h1>
+
+<table class="w3-table w3-striped w3-border w3-centered" style="width: 50%; margin: auto;">
+<thead>
+    <tr class="w3-light-grey">
+      <th>SULFUR</th>
+      <th>IRON</th>
+      <th>DIAMOND</th>
+    </tr>
+</thead>
+    <tr>
+      <td id="result_sulf">-</td>
+      <td id="result_iron">-</td>
+      <td id="result_diamond">-</td>
+    </tr>
+  </table>
+</div>
+
+</body>
+</html> 
