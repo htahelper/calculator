@@ -15,6 +15,10 @@ hr {
 	width: 50px;
 	height: 66px;
 }
+
+.slot3, .slot4, .slot5 {
+	display: none;
+}
 </style>
 <script type="text/javascript">
 var pickaxe_sulf_array = [6, 19, 60, 200];
@@ -35,13 +39,20 @@ var membership_bonus_slots = [1, 2, 3];
 var hash = window.location.href.split('#').pop();
 console.log(hash);
 
+const default_slots = 2;
+
+var slots = default_slots;
+
 function recalculate() {
-	var pickaxe_1 = document.getElementById("pickaxe_1").value;
-	var pickaxe_2 = document.getElementById("pickaxe_2").value;
-	var bomb_1 = document.getElementById("bomb_1").value;
-	var bomb_2 = document.getElementById("bomb_2").value;
-	var jackhammer_1 = document.getElementById("jackhammer_1").value;
-	var jackhammer_2 = document.getElementById("jackhammer_2").value;
+	var pickaxes = [];
+	var bombs = [];
+	var jackhammers = [];
+	for (var i = 0; i < slots; i++) {
+		var index = i + 1;
+		pickaxes[i] = document.getElementById("pickaxe_" + index).value;
+		bombs[i] = document.getElementById("bomb_" + index).value;
+		jackhammers[i] = document.getElementById("jackhammer_" + index).value;
+	}
 	
 	var result_sulf = 0;
 	var result_iron = 0;
@@ -54,58 +65,61 @@ function recalculate() {
 		income_modifier = 1 + membership_income[membership_id - 1] / 100;
 	}
 	
-	if (pickaxe_1 != 0) {
-		result_sulf += pickaxe_sulf_array[pickaxe_1 - 1];
-		result_iron += pickaxe_iron_array[pickaxe_1 - 1];
-		result_diamond += pickaxe_diamond_array[pickaxe_1 - 1];
+	// Setup
+	var setup_sulf = "";
+	var setup_iron = "";
+	var setup_diamond = "";
+	
+	// pickaxes
+	for (i = 0; i < pickaxes.length; i++) {
+		index = i + 1;
+		if (pickaxes[i] != 0) {
+			setup_sulf += " <img src=\"p" + pickaxes[i] + ".webp\" class=\"setup_image\">";
 		
-		document.getElementById("pickaxe_1_result").innerHTML = '<span style="color: green">+' + (Math.round(pickaxe_sulf_array[pickaxe_1 - 1] * income_modifier * 100) / 100) + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  pickaxe_iron_array[pickaxe_1 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  pickaxe_diamond_array[pickaxe_1 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
+			result_sulf += pickaxe_sulf_array[pickaxes[i] - 1];
+			result_iron += pickaxe_iron_array[pickaxes[i] - 1];
+			result_diamond += pickaxe_diamond_array[pickaxes[i] - 1];
+			
+			document.getElementById("pickaxe_" + index + "_result").innerHTML = '<span style="color: green">+' + (Math.round(pickaxe_sulf_array[pickaxes[i] - 1] * income_modifier * 100) / 100) + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  pickaxe_iron_array[pickaxes[i] - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  pickaxe_diamond_array[pickaxes[i] - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
 
-	} else document.getElementById("pickaxe_1_result").innerHTML = "";
+		} else document.getElementById("pickaxe_" + index + "_result").innerHTML = "";
+	}
 	
-	if (pickaxe_2 != 0) {
-		result_sulf += pickaxe_sulf_array[pickaxe_2 - 1];
-		result_iron += pickaxe_iron_array[pickaxe_2 - 1];
-		result_diamond += pickaxe_diamond_array[pickaxe_2 - 1];
+	// bombs
+	for (i = 0; i < bombs.length; i++) {
+		index = i + 1;
+		if (bombs[i] != 0) {
+			setup_iron += " <img src=\"b" + bombs[i] + ".webp\" class=\"setup_image\">";
 		
-		document.getElementById("pickaxe_2_result").innerHTML = '<span style="color: green">+' + (Math.round(pickaxe_sulf_array[pickaxe_2 - 1] * income_modifier * 100) / 100) + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  pickaxe_iron_array[pickaxe_2 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  pickaxe_diamond_array[pickaxe_2 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
-		
-	}  else document.getElementById("pickaxe_2_result").innerHTML = "";
+			result_sulf += bomb_sulf_array[bombs[i] - 1];
+			result_iron += bomb_iron_array[bombs[i] - 1];
+			result_diamond += bomb_diamond_array[bombs[i] - 1];
+			
+			document.getElementById("bomb_" + index + "_result").innerHTML = '<span style="color: red">' +  bomb_sulf_array[bombs[i] - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: green">+' + (Math.round(bomb_iron_array[bombs[i] - 1] * income_modifier * 100) / 100) + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  bomb_diamond_array[bombs[i] - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
+			
+		}  else document.getElementById("bomb_" + index + "_result").innerHTML = "";
+	}
 	
-	if (bomb_1 != 0) {
-		result_sulf += bomb_sulf_array[bomb_1 - 1];
-		result_iron += bomb_iron_array[bomb_1 - 1];
-		result_diamond += bomb_diamond_array[bomb_1 - 1];
-		
-		document.getElementById("bomb_1_result").innerHTML = '<span style="color: red">' +  bomb_sulf_array[bomb_1 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: green">+' + (Math.round(bomb_iron_array[bomb_1 - 1] * income_modifier * 100) / 100) + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  bomb_diamond_array[bomb_1 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
-		
-	}  else document.getElementById("bomb_1_result").innerHTML = "";
-	if (bomb_2 != 0) {
-		result_sulf += bomb_sulf_array[bomb_2 - 1];
-		result_iron += bomb_iron_array[bomb_2 - 1];
-		result_diamond += bomb_diamond_array[bomb_2 - 1];
-		
-		document.getElementById("bomb_2_result").innerHTML = '<span style="color: red">' +  bomb_sulf_array[bomb_2 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: green">+' + (Math.round(bomb_iron_array[bomb_2 - 1] * income_modifier * 100) / 100) + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  bomb_diamond_array[bomb_2 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
-		
-	}  else document.getElementById("bomb_2_result").innerHTML = "";
+	// jackhammers
+	for (i = 0; i < jackhammers.length; i++) {
+		index = i + 1;
+		if (jackhammers[i] != 0) {
+			setup_diamond += " <img src=\"j" + jackhammers[i] + ".webp\" class=\"setup_image\">";
+			
+			result_sulf += jackhammer_sulf_array[jackhammers[i] - 1];
+			result_iron += jackhammer_iron_array[jackhammers[i] - 1];
+			result_diamond += jackhammer_diamond_array[jackhammers[i] - 1];
+			
+			document.getElementById("jackhammer_" + index + "_result").innerHTML = '<span style="color: red">' +  jackhammer_sulf_array[jackhammers[i] - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  jackhammer_iron_array[jackhammers[i] - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: green">+' + (Math.round(jackhammer_diamond_array[jackhammers[i] - 1] * income_modifier * 100) / 100) + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
+			
+		} else document.getElementById("jackhammer_" + index + "_result").innerHTML = "";
+	}
 	
-	if (jackhammer_1 != 0) {
-		result_sulf += jackhammer_sulf_array[jackhammer_1 - 1];
-		result_iron += jackhammer_iron_array[jackhammer_1 - 1];
-		result_diamond += jackhammer_diamond_array[jackhammer_1 - 1];
-		
-		document.getElementById("jackhammer_1_result").innerHTML = '<span style="color: red">' +  jackhammer_sulf_array[jackhammer_1 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  jackhammer_iron_array[jackhammer_1 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: green">+' + (Math.round(jackhammer_diamond_array[jackhammer_1 - 1] * income_modifier * 100) / 100) + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
-		
-	} else document.getElementById("jackhammer_1_result").innerHTML = "";
-	if (jackhammer_2 != 0) {
-		result_sulf += jackhammer_sulf_array[jackhammer_2 - 1];
-		result_iron += jackhammer_iron_array[jackhammer_2 - 1];
-		result_diamond += jackhammer_diamond_array[jackhammer_2 - 1];
-	
-		document.getElementById("jackhammer_2_result").innerHTML = '<span style="color: red">' +  jackhammer_sulf_array[jackhammer_2 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  jackhammer_iron_array[jackhammer_2 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: green">+' + (Math.round(jackhammer_diamond_array[jackhammer_2 - 1] * income_modifier * 100) / 100) + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
-		
-	} else document.getElementById("jackhammer_2_result").innerHTML = "";
-	
+	// Setup images
+	document.getElementById("setup_sulf").innerHTML = setup_sulf;
+	document.getElementById("setup_iron").innerHTML = setup_iron;
+	document.getElementById("setup_diamond").innerHTML = setup_diamond;
+
 	var sulf_color = result_sulf >= 0 ? "green" : "red";
 	var iron_color = result_iron >= 0 ? "green" : "red";
 	var diamond_color = result_diamond >= 0 ? "green" : "red";
@@ -146,36 +160,6 @@ function recalculate() {
 	document.getElementById("result_iron_day").innerHTML = '<span style="color:' + iron_color + '">' + iron_daily + '</span>';
 	document.getElementById("result_diamond_day").innerHTML = '<span style="color:' + diamond_color + '">' + diamond_daily + '</span>';
 	
-	// Setup
-	var setup_sulf = "";
-	var setup_iron = "";
-	var setup_diamond = "";
-	
-	if (pickaxe_1 != 0) {
-		setup_sulf += " <img src=\"p" + pickaxe_1 + ".webp\" class=\"setup_image\">";
-	}
-	if (pickaxe_2 != 0) {
-		setup_sulf += " <img src=\"p" + pickaxe_2 + ".webp\" class=\"setup_image\">";
-	}
-	
-	if (bomb_1 != 0) {
-		setup_iron += " <img src=\"b" + bomb_1 + ".webp\" class=\"setup_image\">";
-	}
-	if (bomb_2 != 0) {
-		setup_iron += " <img src=\"b" + bomb_2 + ".webp\" class=\"setup_image\">";
-	}
-	
-	if (jackhammer_1 != 0) {
-		setup_diamond += " <img src=\"j" + jackhammer_1 + ".webp\" class=\"setup_image\">";
-	}
-	if (jackhammer_2 != 0) {
-		setup_diamond += " <img src=\"j" + jackhammer_2 + ".webp\" class=\"setup_image\">";
-	}
-	
-	document.getElementById("setup_sulf").innerHTML = setup_sulf;
-	document.getElementById("setup_iron").innerHTML = setup_iron;
-	document.getElementById("setup_diamond").innerHTML = setup_diamond;
-	
 	
 }
 
@@ -202,9 +186,27 @@ function membership() {
 	
 	
 		document.getElementById("membership_description").innerHTML = str;
-	} else document.getElementById("membership_description").innerHTML = "";
+		
+		slots = default_slots + membership_bonus_slots[membership_id - 1];
+		
+	} else {
+		document.getElementById("membership_description").innerHTML = "";
+		slots = default_slots;
+	}
 
 	recalculate();
+	
+	changeslots();
+}
+
+function changeslots() {
+	for (var i = 3; i <= 6; i++) {
+		hideByClass("slot" + i); 
+	}
+	console.log(slots);
+	for (var i = 3; i <= slots; i++) {
+		showByClass("slot" + i);
+	}
 }
 
 function reset() {
@@ -215,6 +217,24 @@ function reset() {
 	document.getElementById("jackhammer_1").value = 0;
 	document.getElementById("jackhammer_2").value = 0;
 	recalculate();
+}
+
+function hideByClass(name) {
+	var divsToHide = document.getElementsByClassName(name);
+    for(var i = 0; i < divsToHide.length; i++){
+        //divsToHide[i].style.visibility = "hidden";
+        divsToHide[i].style.display = "none";
+    }
+	console.log("hide slot: " + name);
+}
+
+function showByClass(name) {
+	var divsToHide = document.getElementsByClassName(name);
+    for(var i = 0; i < divsToHide.length; i++){
+        // divsToHide[i].style.visibility = "hidden";
+        divsToHide[i].style.display = "block";
+    }
+	console.log("show slot: " + name);
 }
 </script>
 <body>
@@ -261,6 +281,51 @@ function reset() {
 	<span id="pickaxe_2_result" class="w3-small" style="font-weight: bold;"></span>
 	
 	</li>
+	
+	<li class="w3-padding-16 slot3"><b>Slot 3</b></li>
+    <li class="w3-padding-16 slot3">
+	
+	<select id="pickaxe_3" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: grey;">Common</option>
+	<option value="2" style="color: blue;">Rare</option>
+	<option value="3" style="color: purple;">Epic</option>
+	<option value="4" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	<span id="pickaxe_3_result" class="w3-small" style="font-weight: bold;"></span>
+	
+	</li>
+	
+	<li class="w3-padding-16 slot4"><b>Slot 4</b></li>
+    <li class="w3-padding-16 slot4">
+	
+	<select id="pickaxe_4" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: grey;">Common</option>
+	<option value="2" style="color: blue;">Rare</option>
+	<option value="3" style="color: purple;">Epic</option>
+	<option value="4" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	<span id="pickaxe_4_result" class="w3-small" style="font-weight: bold;"></span>
+	
+	</li>
+	
+	<li class="w3-padding-16 slot5"><b>Slot 5</b></li>
+    <li class="w3-padding-16 slot5">
+	
+	<select id="pickaxe_5" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: grey;">Common</option>
+	<option value="2" style="color: blue;">Rare</option>
+	<option value="3" style="color: purple;">Epic</option>
+	<option value="4" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	<span id="pickaxe_5_result" class="w3-small" style="font-weight: bold;"></span>
+	
+	</li>
    
   </ul>
 </div>
@@ -300,6 +365,54 @@ function reset() {
 	
 	</li>
    
+   
+   
+   <li class="w3-padding-16 slot3"><b>Slot 3</b></li>
+   <li class="w3-padding-16 slot3">
+	
+	<select id="bomb_3" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: grey;">Common</option>
+	<option value="2" style="color: blue;">Rare</option>
+	<option value="3" style="color: purple;">Epic</option>
+	<option value="4" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	<span id="bomb_3_result" class="w3-small" style="font-weight: bold;"></span>
+	
+	</li>
+	
+	<li class="w3-padding-16 slot4"><b>Slot 4</b></li>
+    <li class="w3-padding-16 slot4">
+	
+	<select id="bomb_4" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: grey;">Common</option>
+	<option value="2" style="color: blue;">Rare</option>
+	<option value="3" style="color: purple;">Epic</option>
+	<option value="4" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	<span id="bomb_4_result" class="w3-small" style="font-weight: bold;"></span>
+	
+	</li>
+	
+	<li class="w3-padding-16 slot5"><b>Slot 5</b></li>
+    <li class="w3-padding-16 slot5">
+	
+	<select id="bomb_5" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: grey;">Common</option>
+	<option value="2" style="color: blue;">Rare</option>
+	<option value="3" style="color: purple;">Epic</option>
+	<option value="4" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	<span id="bomb_5_result" class="w3-small" style="font-weight: bold;"></span>
+	
+	</li>
+   
+   
   
   </ul>
 </div>
@@ -335,6 +448,55 @@ function reset() {
 	<span id="jackhammer_2_result" class="w3-small" style="font-weight: bold;"></span>
 	
 	</li>
+	
+	
+	
+   <li class="w3-padding-16 slot3"><b>Slot 3</b></li>
+   <li class="w3-padding-16 slot3">
+	
+	<select id="jackhammer_3" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: grey;">Common</option>
+	<option value="2" style="color: blue;">Rare</option>
+	<option value="3" style="color: purple;">Epic</option>
+	<option value="4" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	<span id="jackhammer_3_result" class="w3-small" style="font-weight: bold;"></span>
+	
+	</li>
+	
+	<li class="w3-padding-16 slot4"><b>Slot 4</b></li>
+    <li class="w3-padding-16 slot4">
+	
+	<select id="jackhammer_4" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: grey;">Common</option>
+	<option value="2" style="color: blue;">Rare</option>
+	<option value="3" style="color: purple;">Epic</option>
+	<option value="4" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	<span id="jackhammer_4_result" class="w3-small" style="font-weight: bold;"></span>
+	
+	</li>
+	
+	<li class="w3-padding-16 slot5"><b>Slot 5</b></li>
+    <li class="w3-padding-16 slot5">
+	
+	<select id="jackhammer_5" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: grey;">Common</option>
+	<option value="2" style="color: blue;">Rare</option>
+	<option value="3" style="color: purple;">Epic</option>
+	<option value="4" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	<span id="jackhammer_5_result" class="w3-small" style="font-weight: bold;"></span>
+	
+	</li>
+	
+	
 	
   </ul>
 </div>
