@@ -101,6 +101,15 @@ function recalculate() {
 	var iron_daily = result_iron * daily_modifier;
 	var diamond_daily = result_diamond * daily_modifier;
 	
+	var token_1_price = document.getElementById("token_1_price").value;
+	var token_2_price = document.getElementById("token_2_price").value;
+	var token_3_price = document.getElementById("token_3_price").value;
+	
+	// price calculate
+	var daily_wax = Math.round((token_1_price * sulf_daily + token_2_price * iron_daily + token_3_price * diamond_daily) * 100) / 100;
+	
+	document.getElementById("result_wax_daily").innerHTML = daily_wax;
+	
 	if (result_sulf > 0) result_sulf = "+" + result_sulf;
 	if (result_iron > 0) result_iron = "+" + result_iron;
 	if (result_diamond > 0) result_diamond = "+" + result_diamond;
@@ -304,6 +313,19 @@ function recalculate() {
       <td id="result_iron_day">-</td>
       <td id="result_diamond_day">-</td>
     </tr>
+	
+	<tr>
+	  <td style="font-weight: bold;">Example token price</td>
+      <td id="result_sulf"><input type="number" step="0.01" value="0.20" min="0" max="10" style="width: 80px; text-align: center;" id="token_1_price" onchange="recalculate()"> WAX</td>
+      <td id="result_iron"><input type="number" step="0.01" value="0.20" min="0" max="10" style="width: 80px; text-align: center;" id="token_2_price" onchange="recalculate()"> WAX</td>
+      <td id="result_diamond"><input type="number" step="0.01" value="0.30" min="0" max="10" style="width: 80px; text-align: center;" id="token_3_price" onchange="recalculate()"> WAX</td>
+    </tr>
+	
+	<tr>
+	  <td style="font-weight: bold;">Daily WAX profit</td>
+      <td style="text-align: center; font-weight: bold;" colspan="3"><span id="result_wax_daily">?</span> WAX</td>
+    </tr>
+	
   </table>
 </div>
 
