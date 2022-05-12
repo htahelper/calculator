@@ -10,6 +10,11 @@ hr {
     background-color: #123455;
     border: none;
 }
+
+.setup_image {
+	width: 50px;
+	height: 66px;
+}
 </style>
 <script type="text/javascript">
 var pickaxe_sulf_array = [6, 19, 60, 200];
@@ -23,6 +28,9 @@ var bomb_diamond_array = [-1, -3, -9, -28];
 var jackhammer_diamond_array = [21, 70, 225];
 var jackhammer_sulf_array = [-9, -33, -100];
 var jackhammer_iron_array = [-9, -33, -100];
+
+var membership_income = [0, 0.5, 2];
+var membership_bonus_slots = [1, 2, 3];
 
 var hash = window.location.href.split('#').pop();
 console.log(hash);
@@ -127,21 +135,60 @@ function recalculate() {
 	document.getElementById("result_iron_day").innerHTML = '<span style="color:' + iron_color + '">' + iron_daily + '</span>';
 	document.getElementById("result_diamond_day").innerHTML = '<span style="color:' + diamond_color + '">' + diamond_daily + '</span>';
 	
+	// Setup
+	var setup_sulf = "";
+	var setup_iron = "";
+	var setup_diamond = "";
+	
+	if (pickaxe_1 != 0) {
+		setup_sulf += " <img src=\"p" + pickaxe_1 + ".webp\" class=\"setup_image\">";
+	}
+	if (pickaxe_2 != 0) {
+		setup_sulf += " <img src=\"p" + pickaxe_2 + ".webp\" class=\"setup_image\">";
+	}
+	
+	if (bomb_1 != 0) {
+		setup_iron += " <img src=\"b" + bomb_1 + ".webp\" class=\"setup_image\">";
+	}
+	if (bomb_2 != 0) {
+		setup_iron += " <img src=\"b" + bomb_2 + ".webp\" class=\"setup_image\">";
+	}
+	
+	if (jackhammer_1 != 0) {
+		setup_diamond += " <img src=\"j" + jackhammer_1 + ".webp\" class=\"setup_image\">";
+	}
+	if (jackhammer_2 != 0) {
+		setup_diamond += " <img src=\"j" + jackhammer_2 + ".webp\" class=\"setup_image\">";
+	}
+	
+	document.getElementById("setup_sulf").innerHTML = setup_sulf;
+	document.getElementById("setup_iron").innerHTML = setup_iron;
+	document.getElementById("setup_diamond").innerHTML = setup_diamond;
+	
+	
 }
 
 function membership() {
 
 	var names = ["Stone", "Gold", "Ruby"];
-	var bonus_slots = [1, 2, 3];
-	var income_bonus = [0, 0.5, 2];
 	var fee_reduction = [0.5, 1, 2];
 	var skip_cycles = [2, 4, 12];
+
 	
 	var membership_id = document.getElementById("membership").value;
 	
 	if (membership_id > 0) {
-		var str = "<b>" + names[membership_id - 1] + " membership</b><br>" + "Additional slots: " + bonus_slots[membership_id - 1] + "<br>Fee reduction: " + fee_reduction[membership_id - 1] + "%<br>Skip cycles: " 
-		+ skip_cycles[membership_id - 1] + "<br><img style=\"width:170px;height:220px;\" src=\"m" + membership_id + ".png\">";
+		
+		var str = '<table class="w3-table w3-striped w3-border w3-centered w3-margin-bottom" style="width: 50%; margin: auto;">' +
+			'<tr><td style="font-weight: bold; vertical-align: middle;" colspan="2">' + names[membership_id - 1] + ' membership</td></tr>' +
+			'<tr><td>Additional slots:</td><td>' +  membership_bonus_slots[membership_id - 1] + '</td></tr>' +
+			'<tr><td>Income bonus:</td><td>' + membership_income[membership_id - 1] + '%</td></tr>' +
+			'<tr><td>Fee reduction:</td><td>' + fee_reduction[membership_id - 1] + '%</td></tr>' +
+			'<tr><td>Skip cycles:</td><td>' + skip_cycles[membership_id - 1] + '</td></tr>' +
+			'<tr><td colspan="2"><img style="width:170px;height:220px;" src="m' + membership_id + '.webp"></td></tr>' +
+			'</table>';
+	
+	
 	
 		document.getElementById("membership_description").innerHTML = str;
 	} else document.getElementById("membership_description").innerHTML = "";
@@ -290,6 +337,12 @@ function membership() {
       <th><img src="diamond.png" style="width: 24px; height: 24px;"> DIAMOND</th>
     </tr>
 </thead>
+	<tr>
+	  <td style="font-weight: bold; vertical-align: middle;">Setup</td>
+      <td id="setup_sulf">-</td>
+      <td id="setup_iron">-</td>
+      <td id="setup_diamond">-</td>
+    </tr>
     <tr>
 	  <td style="font-weight: bold;">Per hour</td>
       <td id="result_sulf">-</td>
@@ -352,18 +405,17 @@ function membership() {
   <h2>Use Membership</h2>
   <table class="w3-table w3-border w3-centered w3-margin-bottom" style="width: 50%; margin: auto;">
 		<tr class="w3-light-gray">
-			<td style="font-weight: bold; vertical-align: middle;">Select membership:</td>
 			<td>
 			<select id="membership" class="w3-select w3-border" style="text-align: center;" onchange="membership()">
-				<option value="0" selected>» Select «</option>
+				<option value="0" selected>» Select membership «</option>
 				<option value="1" style="color: grey;">Stone</option>
-				<option value="2" style="color: blue;">Gold</option>
-				<option value="3" style="color: purple;">Ruby</option>
+				<option value="2" style="color: chocolate;">Gold</option>
+				<option value="3" style="color: red;">Ruby</option>
 			</select>
 			</td>
 		</tr>
 		<tr>
-		<td id="membership_description" colspan="2"></td>
+		<td id="membership_description"></td>
 		</tr>
 </table>
 
