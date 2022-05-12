@@ -206,6 +206,16 @@ function membership() {
 
 	recalculate();
 }
+
+function reset() {
+	document.getElementById("pickaxe_1").value = 0;
+	document.getElementById("pickaxe_2").value = 0;
+	document.getElementById("bomb_1").value = 0;
+	document.getElementById("bomb_2").value = 0;
+	document.getElementById("jackhammer_1").value = 0;
+	document.getElementById("jackhammer_2").value = 0;
+	recalculate();
+}
 </script>
 <body>
 <br>
@@ -328,9 +338,10 @@ function membership() {
 	
   </ul>
 </div>
-  
 
 </div>
+
+<div class="w3-tiny" style="text-align: center; cursor: pointer;" onclick="reset()">» reset setup «</div>
 
 <hr>
 
