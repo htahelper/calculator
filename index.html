@@ -2,7 +2,7 @@
 <html>
 <title>DiggersWorld Setup Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="w3.css">
 <style type="text/css">
 hr {
     height: 1px;
@@ -47,12 +47,19 @@ function recalculate() {
 	var result_iron = 0;
 	var result_diamond = 0;
 	
+	var income_modifier = 1.0;
+	var membership_id = document.getElementById("membership").value;
+	
+	if (membership_id > 0) {
+		income_modifier = 1 + membership_income[membership_id - 1] / 100;
+	}
+	
 	if (pickaxe_1 != 0) {
 		result_sulf += pickaxe_sulf_array[pickaxe_1 - 1];
 		result_iron += pickaxe_iron_array[pickaxe_1 - 1];
 		result_diamond += pickaxe_diamond_array[pickaxe_1 - 1];
 		
-		document.getElementById("pickaxe_1_result").innerHTML = '<span style="color: green">+' +  pickaxe_sulf_array[pickaxe_1 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  pickaxe_iron_array[pickaxe_1 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  pickaxe_diamond_array[pickaxe_1 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
+		document.getElementById("pickaxe_1_result").innerHTML = '<span style="color: green">+' + (Math.round(pickaxe_sulf_array[pickaxe_1 - 1] * income_modifier * 100) / 100) + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  pickaxe_iron_array[pickaxe_1 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  pickaxe_diamond_array[pickaxe_1 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
 
 	} else document.getElementById("pickaxe_1_result").innerHTML = "";
 	
@@ -61,7 +68,7 @@ function recalculate() {
 		result_iron += pickaxe_iron_array[pickaxe_2 - 1];
 		result_diamond += pickaxe_diamond_array[pickaxe_2 - 1];
 		
-		document.getElementById("pickaxe_2_result").innerHTML = '<span style="color: green">+' +  pickaxe_sulf_array[pickaxe_2 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  pickaxe_iron_array[pickaxe_2 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  pickaxe_diamond_array[pickaxe_2 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
+		document.getElementById("pickaxe_2_result").innerHTML = '<span style="color: green">+' + (Math.round(pickaxe_sulf_array[pickaxe_1 - 1] * income_modifier * 100) / 100) + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  pickaxe_iron_array[pickaxe_2 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  pickaxe_diamond_array[pickaxe_2 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
 		
 	}  else document.getElementById("pickaxe_2_result").innerHTML = "";
 	
@@ -70,7 +77,7 @@ function recalculate() {
 		result_iron += bomb_iron_array[bomb_1 - 1];
 		result_diamond += bomb_diamond_array[bomb_1 - 1];
 		
-		document.getElementById("bomb_1_result").innerHTML = '<span style="color: red">' +  bomb_sulf_array[bomb_1 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: green">+' +  bomb_iron_array[bomb_1 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  bomb_diamond_array[bomb_1 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
+		document.getElementById("bomb_1_result").innerHTML = '<span style="color: red">' +  bomb_sulf_array[bomb_1 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: green">+' + (Math.round(bomb_iron_array[bomb_1 - 1] * income_modifier * 100) / 100) + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  bomb_diamond_array[bomb_1 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
 		
 	}  else document.getElementById("bomb_1_result").innerHTML = "";
 	if (bomb_2 != 0) {
@@ -78,7 +85,7 @@ function recalculate() {
 		result_iron += bomb_iron_array[bomb_2 - 1];
 		result_diamond += bomb_diamond_array[bomb_2 - 1];
 		
-		document.getElementById("bomb_2_result").innerHTML = '<span style="color: red">' +  bomb_sulf_array[bomb_2 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: green">+' +  bomb_iron_array[bomb_2 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  bomb_diamond_array[bomb_2 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
+		document.getElementById("bomb_2_result").innerHTML = '<span style="color: red">' +  bomb_sulf_array[bomb_2 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: green">+' + (Math.round(bomb_iron_array[bomb_1 - 1] * income_modifier * 100) / 100) + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  bomb_diamond_array[bomb_2 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
 		
 	}  else document.getElementById("bomb_2_result").innerHTML = "";
 	
@@ -87,7 +94,7 @@ function recalculate() {
 		result_iron += jackhammer_iron_array[jackhammer_1 - 1];
 		result_diamond += jackhammer_diamond_array[jackhammer_1 - 1];
 		
-		document.getElementById("jackhammer_1_result").innerHTML = '<span style="color: red">' +  jackhammer_sulf_array[jackhammer_1 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  jackhammer_iron_array[jackhammer_1 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: green">+' +  jackhammer_diamond_array[jackhammer_1 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
+		document.getElementById("jackhammer_1_result").innerHTML = '<span style="color: red">' +  jackhammer_sulf_array[jackhammer_1 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  jackhammer_iron_array[jackhammer_1 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: green">+' + (Math.round(jackhammer_diamond_array[jackhammer_1 - 1] * income_modifier * 100) / 100) + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
 		
 	} else document.getElementById("jackhammer_1_result").innerHTML = "";
 	if (jackhammer_2 != 0) {
@@ -95,7 +102,7 @@ function recalculate() {
 		result_iron += jackhammer_iron_array[jackhammer_2 - 1];
 		result_diamond += jackhammer_diamond_array[jackhammer_2 - 1];
 	
-		document.getElementById("jackhammer_2_result").innerHTML = '<span style="color: red">' +  jackhammer_sulf_array[jackhammer_2 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  jackhammer_iron_array[jackhammer_2 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: green">+' +  jackhammer_diamond_array[jackhammer_2 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
+		document.getElementById("jackhammer_2_result").innerHTML = '<span style="color: red">' +  jackhammer_sulf_array[jackhammer_2 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  jackhammer_iron_array[jackhammer_2 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: green">+' + (Math.round(jackhammer_diamond_array[jackhammer_1 - 1] * income_modifier * 100) / 100) + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
 		
 	} else document.getElementById("jackhammer_2_result").innerHTML = "";
 	
@@ -103,11 +110,15 @@ function recalculate() {
 	var iron_color = result_iron >= 0 ? "green" : "red";
 	var diamond_color = result_diamond >= 0 ? "green" : "red";
 	
+	if (result_sulf > 0) result_sulf *= income_modifier;
+	if (result_iron > 0) result_iron *= income_modifier;
+	if (result_diamond > 0) result_diamond *= income_modifier;
+	
 	var daily_modifier = document.getElementById("mine_daily").value;
 	
-	var sulf_daily = result_sulf * daily_modifier;
-	var iron_daily = result_iron * daily_modifier;
-	var diamond_daily = result_diamond * daily_modifier;
+	var sulf_daily = Math.round(result_sulf * daily_modifier * 100) / 100;
+	var iron_daily = Math.round(result_iron * daily_modifier * 100) / 100;
+	var diamond_daily = Math.round(result_diamond * daily_modifier * 100) / 100;
 	
 	var token_1_price = document.getElementById("token_1_price").value;
 	var token_2_price = document.getElementById("token_2_price").value;
