@@ -129,18 +129,18 @@ function recalculate() {
 	
 	document.getElementById("result_wax_daily").innerHTML = daily_wax;
 	
-	if (result_sulf > 0) result_sulf = "+" + result_sulf;
-	if (result_iron > 0) result_iron = "+" + result_iron;
-	if (result_diamond > 0) result_diamond = "+" + result_diamond;
+	if (result_sulf > 0) result_sulf = "+" + (Math.round(result_sulf * 100) / 100);
+	if (result_iron > 0) result_iron = "+" + (Math.round(result_iron * 100) / 100);
+	if (result_diamond > 0) result_diamond = "+" + (Math.round(result_diamond * 100) / 100);
 	
 	if (sulf_daily > 0) sulf_daily = "+" + sulf_daily;
 	if (iron_daily > 0) iron_daily = "+" + iron_daily;
 	if (diamond_daily > 0) diamond_daily = "+" + diamond_daily;
 	
 	
-	document.getElementById("result_sulf").innerHTML = '<span style="color:' + sulf_color + '">' + (Math.round(result_sulf * 100) / 100) + '</span>';
-	document.getElementById("result_iron").innerHTML = '<span style="color:' + iron_color + '">' + (Math.round(result_iron * 100) / 100) + '</span>';
-	document.getElementById("result_diamond").innerHTML = '<span style="color:' + diamond_color + '">' + (Math.round(result_diamond * 100) / 100) + '</span>';
+	document.getElementById("result_sulf").innerHTML = '<span style="color:' + sulf_color + '">' + result_sulf + '</span>';
+	document.getElementById("result_iron").innerHTML = '<span style="color:' + iron_color + '">' + result_iron + '</span>';
+	document.getElementById("result_diamond").innerHTML = '<span style="color:' + diamond_color + '">' + result_diamond + '</span>';
 	
 	document.getElementById("result_sulf_day").innerHTML = '<span style="color:' + sulf_color + '">' + sulf_daily + '</span>';
 	document.getElementById("result_iron_day").innerHTML = '<span style="color:' + iron_color + '">' + iron_daily + '</span>';
