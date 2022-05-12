@@ -128,6 +128,26 @@ function recalculate() {
 	document.getElementById("result_diamond_day").innerHTML = '<span style="color:' + diamond_color + '">' + diamond_daily + '</span>';
 	
 }
+
+function membership() {
+
+	var names = ["Stone", "Gold", "Ruby"];
+	var bonus_slots = [1, 2, 3];
+	var income_bonus = [0, 0.5, 2];
+	var fee_reduction = [0.5, 1, 2];
+	var skip_cycles = [2, 4, 12];
+	
+	var membership_id = document.getElementById("membership").value;
+	
+	if (membership_id > 0) {
+		var str = "<b>" + names[membership_id - 1] + " membership</b><br>" + "Additional slots: " + bonus_slots[membership_id - 1] + "<br>Fee reduction: " + fee_reduction[membership_id - 1] + "%<br>Skip cycles: " 
+		+ skip_cycles[membership_id - 1] + "<br><img style=\"width:170px;height:220px;\" src=\"m" + membership_id + ".png\">";
+	
+		document.getElementById("membership_description").innerHTML = str;
+	} else document.getElementById("membership_description").innerHTML = "";
+
+	recalculate();
+}
 </script>
 <body>
 <br>
@@ -327,6 +347,28 @@ function recalculate() {
     </tr>
 	
   </table>
+  <br>
+  
+  <h2>Use Membership</h2>
+  <table class="w3-table w3-border w3-centered w3-margin-bottom" style="width: 50%; margin: auto;">
+		<tr class="w3-light-gray">
+			<td style="font-weight: bold; vertical-align: middle;">Select membership:</td>
+			<td>
+			<select id="membership" class="w3-select w3-border" style="text-align: center;" onchange="membership()">
+				<option value="0" selected>» Select «</option>
+				<option value="1" style="color: grey;">Stone</option>
+				<option value="2" style="color: blue;">Gold</option>
+				<option value="3" style="color: purple;">Ruby</option>
+			</select>
+			</td>
+		</tr>
+		<tr>
+		<td id="membership_description" colspan="2"></td>
+		</tr>
+</table>
+
+<br>
+  
 </div>
 
 </body>
