@@ -85,7 +85,7 @@ function recalculate() {
 		result_iron += bomb_iron_array[bomb_2 - 1];
 		result_diamond += bomb_diamond_array[bomb_2 - 1];
 		
-		document.getElementById("bomb_2_result").innerHTML = '<span style="color: red">' +  bomb_sulf_array[bomb_2 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: green">+' + (Math.round(bomb_iron_array[bomb_1 - 1] * income_modifier * 100) / 100) + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  bomb_diamond_array[bomb_2 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
+		document.getElementById("bomb_2_result").innerHTML = '<span style="color: red">' +  bomb_sulf_array[bomb_2 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: green">+' + (Math.round(bomb_iron_array[bomb_2 - 1] * income_modifier * 100) / 100) + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  bomb_diamond_array[bomb_2 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
 		
 	}  else document.getElementById("bomb_2_result").innerHTML = "";
 	
@@ -102,7 +102,7 @@ function recalculate() {
 		result_iron += jackhammer_iron_array[jackhammer_2 - 1];
 		result_diamond += jackhammer_diamond_array[jackhammer_2 - 1];
 	
-		document.getElementById("jackhammer_2_result").innerHTML = '<span style="color: red">' +  jackhammer_sulf_array[jackhammer_2 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  jackhammer_iron_array[jackhammer_2 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: green">+' + (Math.round(jackhammer_diamond_array[jackhammer_1 - 1] * income_modifier * 100) / 100) + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
+		document.getElementById("jackhammer_2_result").innerHTML = '<span style="color: red">' +  jackhammer_sulf_array[jackhammer_2 - 1] + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  jackhammer_iron_array[jackhammer_2 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: green">+' + (Math.round(jackhammer_diamond_array[jackhammer_2 - 1] * income_modifier * 100) / 100) + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
 		
 	} else document.getElementById("jackhammer_2_result").innerHTML = "";
 	
