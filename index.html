@@ -210,19 +210,17 @@ function changeslots() {
 }
 
 function reset() {
-	document.getElementById("pickaxe_1").value = 0;
-	document.getElementById("pickaxe_2").value = 0;
-	document.getElementById("bomb_1").value = 0;
-	document.getElementById("bomb_2").value = 0;
-	document.getElementById("jackhammer_1").value = 0;
-	document.getElementById("jackhammer_2").value = 0;
+	for (var i = 1; i < 6; i++) {
+		document.getElementById("pickaxe_" + i).value = 0;
+		document.getElementById("bomb_" + i).value = 0;
+		document.getElementById("jackhammer_" + i).value = 0;
+	}
 	recalculate();
 }
 
 function hideByClass(name) {
 	var divsToHide = document.getElementsByClassName(name);
     for(var i = 0; i < divsToHide.length; i++){
-        //divsToHide[i].style.visibility = "hidden";
         divsToHide[i].style.display = "none";
     }
 	console.log("hide slot: " + name);
@@ -231,7 +229,6 @@ function hideByClass(name) {
 function showByClass(name) {
 	var divsToHide = document.getElementsByClassName(name);
     for(var i = 0; i < divsToHide.length; i++){
-        // divsToHide[i].style.visibility = "hidden";
         divsToHide[i].style.display = "block";
     }
 	console.log("show slot: " + name);
