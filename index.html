@@ -68,7 +68,7 @@ function recalculate() {
 		result_iron += pickaxe_iron_array[pickaxe_2 - 1];
 		result_diamond += pickaxe_diamond_array[pickaxe_2 - 1];
 		
-		document.getElementById("pickaxe_2_result").innerHTML = '<span style="color: green">+' + (Math.round(pickaxe_sulf_array[pickaxe_1 - 1] * income_modifier * 100) / 100) + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  pickaxe_iron_array[pickaxe_2 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  pickaxe_diamond_array[pickaxe_2 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
+		document.getElementById("pickaxe_2_result").innerHTML = '<span style="color: green">+' + (Math.round(pickaxe_sulf_array[pickaxe_2 - 1] * income_modifier * 100) / 100) + ' <img src="sulf.png" style="width: 18px; height: 18px;" title="SULF"></span> ' + '<span style="color: red">' +  pickaxe_iron_array[pickaxe_2 - 1] + ' <img src="iron.png" style="width: 18px; height: 18px;" title="IRON"></span> ' + '<span style="color: red">' +  pickaxe_diamond_array[pickaxe_2 - 1] + ' <img src="diamond.png" style="width: 18px; height: 18px;" title="DIAMOND"></span>';
 		
 	}  else document.getElementById("pickaxe_2_result").innerHTML = "";
 	
