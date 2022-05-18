@@ -256,6 +256,88 @@ async function loadWax() {
   document.getElementById("wax_price").innerHTML = (Math.round(wax.price * 1000) / 1000);
 
 }
+
+async function loadUser() {
+
+  var user = document.getElementById("user").value;
+
+  var membershipJson = "{\"code\":\"diggerswgame\",\"encode_type\":\"\",\"index_position\":\"1\",\"json\":true,\"key_type\":\"name\",\"limit\":100,\"lower_bound\":\"" + user + "\",\"reverse\":false,\"scope\":\"diggerswgame\",\"show_payer\":false,\"table\":\"memberships\",\"upper_bound\":\"" + user + "\"}";
+  
+  var toolsJson = "{\"code\":\"diggerswgame\",\"encode_type\":\"\",\"index_position\":\"2\",\"json\":true,\"key_type\":\"name\",\"limit\":100,\"lower_bound\":\"" + user + "\",\"reverse\":false,\"scope\":\"diggerswgame\",\"show_payer\":false,\"table\":\"tools\",\"upper_bound\":\"" + user + "\"}";
+
+  fetch("https://chain.wax.io/v1/chain/get_table_rows",
+	{
+		headers: {
+		  'Accept': 'application/json',
+		  'Content-Type': 'application/json'
+		},
+		method: "POST",
+		body: membershipJson
+	})
+	.then(response => response.json())
+	.then(data => { 
+	
+	 // Slots and call items
+	 if (data != undefined && data.rows != undefined && data.rows.length > 0) {
+		var membershipObject = { 514074 : 1, 514077 : 2, 514078 : 3 };
+		var mbsid = membershipObject[data.rows[0].template_id];
+		document.getElementById("membership").value = mbsid;
+		membership();
+	 }
+	 
+	
+			fetch("https://chain.wax.io/v1/chain/get_table_rows",
+			{
+				headers: {
+				  'Accept': 'application/json',
+				  'Content-Type': 'application/json'
+				},
+				method: "POST",
+				body: toolsJson
+			})
+			.then(response => response.json())
+			.then(data => { 
+			
+				reset();
+			
+				var iCounter = 1;
+				var sCounter = 1;
+				var dCounter = 1;
+			
+				var ironTools = { 485363 : 1, 485364 : 2, 485365 : 3, 514086 : 4 };
+				var sulfTools = { 485369 : 1, 485370 : 2, 485371 : 3, 514088 : 4 };
+				var diamondTools = { 485367 : 1, 485368 : 2, 514087 : 3 };
+				
+				 if (data != undefined && data.rows != undefined && data.rows.length > 0) {
+				 
+				    for (var c = 0; c < data.rows.length; c++) {
+						
+						var obj = data.rows[c];
+						if (obj.type == "iron") {
+							document.getElementById("bomb_" + iCounter).value = ironTools[obj.template_id];
+							iCounter++;
+						}
+						if (obj.type == "diamond") {
+							document.getElementById("jackhammer_" + dCounter).value = diamondTools[obj.template_id];
+							dCounter++;
+						}
+						if (obj.type == "sulf") {
+							document.getElementById("pickaxe_" + sCounter).value = sulfTools[obj.template_id];
+							sCounter++;
+						}
+						
+					}
+				 
+				 }
+				 
+				 recalculate();
+			 
+			
+			});
+	
+	
+	});
+}
 </script>
 <body onload="load()">
 
@@ -540,7 +622,22 @@ async function loadWax() {
 
 <hr>
 
+
 <div class="w3-row-padding w3-center">
+
+<h2>Check my account</h2>
+  <table class="w3-table w3-border w3-centered w3-margin-bottom" style="width: 50%; margin: auto;">
+		<tr>
+			<td>
+			<input type="text" name="user" id="user" placeholder="xxxxx.wam" style="text-align: center;">
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<button onclick="loadUser()">Search</button>
+			</td>
+		</tr>
+</table>
 
 <h2>Result:</h2>
 <div class="w3-small w3-margin-bottom">(resource profit includes repair cost)</div>
