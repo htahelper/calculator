@@ -16,7 +16,7 @@ hr {
 	height: 66px;
 }
 
-.slot3, .slot4, .slot5 {
+.slot3, .slot4, .slot5, .slot6 {
 	display: none;
 }
 </style>
@@ -43,6 +43,7 @@ const default_slots = 2;
 var slots = default_slots;
 
 function recalculate() {
+
 	var pickaxes = [];
 	var bombs = [];
 	var jackhammers = [];
@@ -192,14 +193,38 @@ function membership() {
 		document.getElementById("membership_description").innerHTML = "";
 		slots = default_slots;
 	}
+	
+	if (document.getElementById("pass").checked) {
+		slots += 1;
+	}
+	
 
 	recalculate();
 	
 	changeslots();
 }
 
+function pass() {
+	var membership_id = document.getElementById("membership").value;
+	if (membership_id > 0) {
+		slots = default_slots + membership_bonus_slots[membership_id - 1];
+		
+	} else {
+		document.getElementById("membership_description").innerHTML = "";
+		slots = default_slots;
+	}
+	
+	if (document.getElementById("pass").checked) {
+		slots += 1;
+	}
+	
+	recalculate();
+	
+	changeslots();
+}
+
 function changeslots() {
-	for (var i = 3; i <= 6; i++) {
+	for (var i = 3; i <= 7; i++) {
 		hideByClass("slot" + i); 
 	}
 	console.log(slots);
@@ -209,7 +234,7 @@ function changeslots() {
 }
 
 function reset() {
-	for (var i = 1; i < 6; i++) {
+	for (var i = 1; i < 7; i++) {
 		document.getElementById("pickaxe_" + i).value = 0;
 		document.getElementById("bomb_" + i).value = 0;
 		document.getElementById("jackhammer_" + i).value = 0;
@@ -262,6 +287,9 @@ async function loadUser() {
   var user = document.getElementById("user").value;
 
   var membershipJson = "{\"code\":\"diggerswgame\",\"encode_type\":\"\",\"index_position\":\"1\",\"json\":true,\"key_type\":\"name\",\"limit\":100,\"lower_bound\":\"" + user + "\",\"reverse\":false,\"scope\":\"diggerswgame\",\"show_payer\":false,\"table\":\"memberships\",\"upper_bound\":\"" + user + "\"}";
+  
+  var passesJson = "{\"code\":\"diggerswgame\",\"encode_type\":\"\",\"index_position\":\"1\",\"json\":true,\"key_type\":\"name\",\"limit\":100,\"lower_bound\":\"" + user + "\",\"reverse\":false,\"scope\":\"diggerswgame\",\"show_payer\":false,\"table\":\"passes\",\"upper_bound\":\"" + user + "\"}";
+  
   
   var toolsJson = "{\"code\":\"diggerswgame\",\"encode_type\":\"\",\"index_position\":\"2\",\"json\":true,\"key_type\":\"name\",\"limit\":100,\"lower_bound\":\"" + user + "\",\"reverse\":false,\"scope\":\"diggerswgame\",\"show_payer\":false,\"table\":\"tools\",\"upper_bound\":\"" + user + "\"}";
 
@@ -330,7 +358,28 @@ async function loadUser() {
 				 
 				 }
 				 
-				 recalculate();
+				 fetch("https://chain.wax.io/v1/chain/get_table_rows",
+				{
+					headers: {
+					  'Accept': 'application/json',
+					  'Content-Type': 'application/json'
+					},
+					method: "POST",
+					body: passesJson
+				})
+				.then(response => response.json())
+				.then(data => { 
+					
+					  if (data.rows.length > 0) {
+						document.getElementById("pass").checked = true;
+					  }
+					
+					 pass();
+					 // recalculate();
+					
+				});
+				 
+			
 			 
 			
 			});
@@ -444,6 +493,21 @@ async function loadUser() {
 	<span id="pickaxe_5_result" class="w3-small" style="font-weight: bold;"></span>
 	
 	</li>
+	
+	<li class="w3-padding-16 slot6"><b>Slot 6</b></li>
+    <li class="w3-padding-16 slot6">
+	
+	<select id="pickaxe_6" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: grey;">Common</option>
+	<option value="2" style="color: blue;">Rare</option>
+	<option value="3" style="color: purple;">Epic</option>
+	<option value="4" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	<span id="pickaxe_6_result" class="w3-small" style="font-weight: bold;"></span>
+	
+	</li>
    
   </ul>
 </div>
@@ -530,7 +594,20 @@ async function loadUser() {
 	
 	</li>
    
-   
+    <li class="w3-padding-16 slot6"><b>Slot 6</b></li>
+    <li class="w3-padding-16 slot6">
+	
+	<select id="bomb_6" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: grey;">Common</option>
+	<option value="2" style="color: blue;">Rare</option>
+	<option value="3" style="color: purple;">Epic</option>
+	<option value="4" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	<span id="bomb_6_result" class="w3-small" style="font-weight: bold;"></span>
+	
+	</li>
   
   </ul>
 </div>
@@ -608,6 +685,20 @@ async function loadUser() {
 	</select>
 	
 	<span id="jackhammer_5_result" class="w3-small" style="font-weight: bold;"></span>
+	
+	</li>
+	
+	<li class="w3-padding-16 slot6"><b>Slot 6</b></li>
+    <li class="w3-padding-16 slot6">
+	
+	<select id="jackhammer_6" class="w3-select w3-border" style="text-align: center;" onchange="recalculate()">
+	<option value="0" selected>» Select «</option>
+	<option value="1" style="color: blue;">Rare</option>
+	<option value="2" style="color: purple;">Epic</option>
+	<option value="3" style="color: chocolate;">Legendary</option>
+	</select>
+	
+	<span id="jackhammer_6_result" class="w3-small" style="font-weight: bold;"></span>
 	
 	</li>
 	
@@ -731,8 +822,22 @@ async function loadUser() {
 		<tr>
 		<td id="membership_description"></td>
 		</tr>
-</table>
+	</table>
 
+<br>
+
+  <h2>Use Access to the Mine Pass</h2>
+  <table class="w3-table w3-border w3-centered w3-margin-bottom" style="width: 50%; margin: auto;">
+		<tr class="w3-light-gray">
+			<td>
+			Check if use pass <input type="checkbox" name="pass" id="pass" class="w3-check" onchange="pass()">
+			</td>
+		</tr>
+		<tr>
+		<td><img src="pass.png" style="width: 128px; height: 131px;"></td>
+		</tr>
+	</table>
+	
 <br>
 
  
