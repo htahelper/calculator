@@ -373,6 +373,9 @@ async function loadUser() {
 					  if (data.rows.length > 0) {
 						document.getElementById("pass").checked = true;
 					  }
+					  else {
+						document.getElementById("pass").checked = false;
+					  }
 					
 					 pass();
 					 // recalculate();
