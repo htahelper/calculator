@@ -283,7 +283,7 @@ async function loadWax() {
 }
 
 async function loadStat() {
-  const response = await fetch('http://195.88.87.142/diggers/get.php');
+  const response = await fetch('https://alkesznevelde.hu/diggers.php');
   const resp = await response.json();
   document.getElementById("stat_users").innerHTML = resp.users;
   document.getElementById("stat_tools").innerHTML = resp.tools;
