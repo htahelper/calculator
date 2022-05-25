@@ -261,6 +261,7 @@ function showByClass(name) {
 async function load() {
 	loadWax();
 	loadTokens();
+	loadStat();
 }
 
 async function loadTokens() {
@@ -279,7 +280,14 @@ async function loadWax() {
   const response = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=WAXPUSDT');
   const wax = await response.json();
   document.getElementById("wax_price").innerHTML = (Math.round(wax.price * 1000) / 1000);
+}
 
+async function loadStat() {
+  const response = await fetch('http://195.88.87.142/diggers/get.php');
+  const resp = await response.json();
+  document.getElementById("stat_users").innerHTML = resp.users;
+  document.getElementById("stat_tools").innerHTML = resp.tools;
+  document.getElementById("stat_passes").innerHTML = resp.passes;
 }
 
 async function loadUser() {
@@ -410,13 +418,33 @@ async function loadUser() {
 
 <div class="w3-container w3-margin-bottom" style="text-align: center;">
   <h2>DiggersWorld Setup Calculator</h2>
-  <div class="w3-small">(The calculations based on the <a href="https://whitepaper.diggersworld.io/whitepaper/game-nfts" target="_blank">whitepaper</a> <span style="font-weight: bold;">safe mine</span> numbers)</div><br>
-  <div class="w3-small">If you want to register, please use my reference link: <a href="https://play.diggersworld.io?ref=ofadu.wam" target="_blank">https://play.diggersworld.io?ref=ofadu.wam</a>
-  
+
+
   <div class="w3-center"><a href="https://play.diggersworld.io?ref=ofadu.wam" target="_blank"><img src="banner.png"></a></div>
   
-  </div>
-  <div class="w3-small">If you want to send some donations: <b>ofadu.wam</b></div>
+
+</div>
+
+<div class="w3-row-padding">
+
+ <table class="w3-table w3-border w3-centered w3-margin-bottom" style="width: 50%; margin: auto;">
+		<tr class="w3-black">
+			<td colspan="3" class="w3-large">
+			Statistics
+			</td>
+		</tr>
+		<tr>
+			<td class="w3-center" style="width: 33%; font-weight: bold;">Users:</td>
+			<td class="w3-center" style="width: 34%; font-weight: bold;">Tools staked:</td>
+			<td class="w3-center" style="width: 33%; font-weight: bold;">Passes staked:</td>
+		</tr>
+		<tr>
+			<td id="stat_users">?</td>
+			<td id="stat_tools">?</td>
+			<td id="stat_passes">?</td>
+		</tr>
+	</table>
+
 </div>
 
 <div class="w3-row-padding">
