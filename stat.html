@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<title>DiggersWorld Detailed Statistics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<style type="text/css">
+hr {
+    height: 1px;
+    color: #123455;
+    background-color: #123455;
+    border: none;
+}
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script type="text/javascript">
+async function load() {
+	loadWax();
+	loadTokens();
+	loadStat();
+}
+
+async function loadTokens() {
+  const response = await fetch('https://wax.alcor.exchange/api/markets');
+  const tokens = await response.json()
+  
+  document.getElementById("dws_price").innerHTML = (Math.round(tokens[485].last_price * 1000) / 1000);
+  document.getElementById("dwi_price").innerHTML = (Math.round(tokens[484].last_price * 1000) / 1000);
+  document.getElementById("dwd_price").innerHTML = (Math.round(tokens[486].last_price * 1000) / 1000);
+}
+
+async function loadWax() {
+  const response = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=WAXPUSDT');
+  const wax = await response.json();
+  document.getElementById("wax_price").innerHTML = (Math.round(wax.price * 1000) / 1000);
+}
+
+async function loadStat() {
+  const response = await fetch('https://alkesznevelde.hu/diggers_stat.php');
+  const resp = await response.json();
+  
+  var xValues = [];
+  var yValues = [];
+  
+  for (var i = 0; i < resp.users.length; i++) {
+    xValues.push(resp.users[i].date);
+	yValues.push(resp.users[i].count);
+  }
+  
+
+	new Chart("chart", {
+	  type: "line",
+	  data: {
+		labels: xValues,
+		datasets: [{
+		  fill: false,
+		  lineTension: 0,
+		  backgroundColor: "rgba(0,0,255,1.0)",
+		  borderColor: "rgba(0,0,255,0.1)",
+		  data: yValues
+		}]
+	  },
+	  options: {
+		legend: {display: false},
+		scales: {
+		  // yAxes: [{ticks: {min: 1000, max: 2500}}],
+		}
+	  }
+	});
+}
+</script>
+
+<body onload="load()">
+
+<div style="position: sticky; top: 0;">
+<div class="w3-quarter w3-black w3-padding">
+<img src="wax.png" style="width: 18px; height: 18px;"> 1￦ = <span id="wax_price"></span>$
+</div>
+<div class="w3-quarter w3-black w3-padding">
+<img src="sulf.png" style="width: 18px; height: 18px;"> <span id="dws_price"></span> WAX
+</div>
+<div class="w3-quarter w3-black w3-padding">
+<img src="iron.png" style="width: 18px; height: 18px;"> <span id="dwi_price"></span> WAX
+</div>
+<div class="w3-quarter w3-black w3-padding">
+<img src="diamond.png" style="width: 18px; height: 18px;"> <span id="dwd_price"></span> WAX
+</div>
+</div>
+
+<div class="w3-container w3-margin-bottom" style="text-align: center;">
+  <h2>DiggersWorld Detailed Statistics</h2>
+
+
+  <div class="w3-center"><a href="https://play.diggersworld.io?ref=ofadu.wam" target="_blank"><img src="banner.png"></a></div>
+  
+
+</div>
+
+<div class="w3-row-padding">
+
+ <table class="w3-table w3-border w3-centered w3-margin-bottom" style="width: 50%; margin: auto;">
+		<tr class="w3-black">
+			<td colspan="3" class="w3-large">
+			Users statistics
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<canvas id="chart" style="width:100%;"></canvas>
+			</td>
+		</tr>
+		
+	</table>
+
+</div>
+
+
+
+
+
+
+
+<div class="w3-center"
+<div class="w3-small">If you want to send some donations: <b>ofadu.wam</b></div>
+<br>
+  
+</div>
+
+</body>
+</html> 
