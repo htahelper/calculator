@@ -48,7 +48,69 @@ async function loadStat() {
   }
   
 
-	new Chart("chart", {
+	new Chart("chart_users", {
+	  type: "line",
+	  data: {
+		labels: xValues,
+		datasets: [{
+		  fill: false,
+		  lineTension: 0,
+		  backgroundColor: "rgba(0,0,255,1.0)",
+		  borderColor: "rgba(0,0,255,0.1)",
+		  data: yValues
+		}]
+	  },
+	  options: {
+		legend: {display: false},
+		scales: {
+		  // yAxes: [{ticks: {min: 1000, max: 2500}}],
+		}
+	  }
+	});
+	
+	
+	
+	
+  xValues = [];
+  yValues = [];
+  
+  for (var i = 0; i < resp.tools.length; i++) {
+    xValues.push(resp.tools[i].date);
+	yValues.push(resp.tools[i].count);
+  }
+  
+
+	new Chart("chart_tools", {
+	  type: "line",
+	  data: {
+		labels: xValues,
+		datasets: [{
+		  fill: false,
+		  lineTension: 0,
+		  backgroundColor: "rgba(0,0,255,1.0)",
+		  borderColor: "rgba(0,0,255,0.1)",
+		  data: yValues
+		}]
+	  },
+	  options: {
+		legend: {display: false},
+		scales: {
+		  // yAxes: [{ticks: {min: 1000, max: 2500}}],
+		}
+	  }
+	});
+	
+	
+  xValues = [];
+  yValues = [];
+  
+  for (var i = 0; i < resp.passes.length; i++) {
+    xValues.push(resp.passes[i].date);
+	yValues.push(resp.passes[i].count);
+  }
+  
+
+	new Chart("chart_passes", {
 	  type: "line",
 	  data: {
 		labels: xValues,
@@ -101,12 +163,12 @@ async function loadStat() {
  <table class="w3-table w3-border w3-centered w3-margin-bottom" style="width: 50%; margin: auto;">
 		<tr class="w3-black">
 			<td colspan="3" class="w3-large">
-			Users statistics
+			Users count statistics
 			</td>
 		</tr>
 		<tr>
 			<td>
-			<canvas id="chart" style="width:100%;"></canvas>
+			<canvas id="chart_users" style="width:100%;"></canvas>
 			</td>
 		</tr>
 		
@@ -116,7 +178,41 @@ async function loadStat() {
 
 
 
+<div class="w3-row-padding">
 
+ <table class="w3-table w3-border w3-centered w3-margin-bottom" style="width: 50%; margin: auto;">
+		<tr class="w3-black">
+			<td colspan="3" class="w3-large">
+			Tools staked count statistics
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<canvas id="chart_tools" style="width:100%;"></canvas>
+			</td>
+		</tr>
+		
+	</table>
+
+</div>
+
+<div class="w3-row-padding">
+
+ <table class="w3-table w3-border w3-centered w3-margin-bottom" style="width: 50%; margin: auto;">
+		<tr class="w3-black">
+			<td colspan="3" class="w3-large">
+			Passes staked count statistics
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<canvas id="chart_passes" style="width:100%;"></canvas>
+			</td>
+		</tr>
+		
+	</table>
+
+</div>
 
 
 
