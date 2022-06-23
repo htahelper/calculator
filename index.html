@@ -301,7 +301,7 @@ async function loadUser() {
   
   var toolsJson = "{\"code\":\"diggerswgame\",\"encode_type\":\"\",\"index_position\":\"2\",\"json\":true,\"key_type\":\"name\",\"limit\":100,\"lower_bound\":\"" + user + "\",\"reverse\":false,\"scope\":\"diggerswgame\",\"show_payer\":false,\"table\":\"tools\",\"upper_bound\":\"" + user + "\"}";
 
-  fetch("https://chain.wax.io/v1/chain/get_table_rows",
+  fetch("https://wax.greymass.com/v1/chain/get_table_rows",
 	{
 		headers: {
 		  'Accept': 'application/json',
@@ -322,7 +322,7 @@ async function loadUser() {
 	 }
 	 
 	
-			fetch("https://chain.wax.io/v1/chain/get_table_rows",
+			fetch("https://wax.greymass.com/v1/chain/get_table_rows",
 			{
 				headers: {
 				  'Accept': 'application/json',
@@ -366,7 +366,7 @@ async function loadUser() {
 				 
 				 }
 				 
-				 fetch("https://chain.wax.io/v1/chain/get_table_rows",
+				 fetch("https://wax.greymass.com/v1/chain/get_table_rows",
 				{
 					headers: {
 					  'Accept': 'application/json',
